@@ -1,26 +1,16 @@
-[group1]
-18.212.230.40
-54.221.153.13
-
-[group1:vars]
-ansible_ssh_private_key_file=~/demo-virginia.pem
-ansible_user=ubuntu
-ansible_python_interpreter=/usr/bin/python3
-
-[group2]
-3.88.201.130
-3.91.44.63
-
-[group2:vars]
-ansible_ssh_private_key_file=~/demo-virginia.pem
-ansible_user=ubuntu
-ansible_python_interpreter=/usr/bin/python3
-
 [nexus_server]
 52.66.243.138
 
 [nexus_server:vars]
 ansible_ssh_private_key_file=~/aws-KP.pem
 ansible_user=ubuntu
+ansible_python_interpreter=/usr/bin/python3
+
+[docker_server]
+3.108.236.42
+
+[docker_server:vars]
+ansible_ssh_private_key_file=~/aws-KP.pem
+ansible_user=ec2-user
 ansible_python_interpreter=/usr/bin/python3
 
