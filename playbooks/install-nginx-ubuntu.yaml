@@ -1,0 +1,18 @@
+---
+- name: Install nginx web server 
+  hosts: 
+    - group1
+    - group2
+  become: yes
+  tasks:
+    - name: Install nginx webserver
+      apt:
+        name: nginx
+        state: latest
+      
+    - name: start and enable nginx server
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+      

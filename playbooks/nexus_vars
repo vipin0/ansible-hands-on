@@ -1,0 +1,3 @@
+nexus_user: nexus
+download_url: https://download.sonatype.com/nexus/3/nexus-3.38.0-01-unix.tar.gz
+dest_directory: /opt

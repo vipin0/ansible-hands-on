@@ -1,0 +1,51 @@
+---
+- name: Deploying static react js application
+  hosts: 
+    - group1
+    - group2
+  become: True
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+    
+    - name: Install nodejs and npm
+      apt:
+        pkg:
+          - nodejs
+          - npm
+        update_cache: yes
+        cache_valid_time: 3600
+        state: present
+
+- name: Deploy nodejs application
+  hosts: 
+    - group1
+  become: yes
+  tasks:
+    - name: Recursively remove  if exists
+      file:
+        path: /home/ubuntu/app
+        state: absent
+    
+    - name: clone the repo
+      git:
+        repo: https://github.com/vipin0/react-app.git
+        dest: /home/ubuntu/app
+    
+    - name: Install npm packages 
+      npm:
+        path: /home/ubuntu/app
+  
+    - name: Build the react app
+      command:
+        chdir: /home/ubuntu/app
+        cmd: npm run build  
+      # async: 1000
+      # poll: 0
+    - name: Copy build to server root directory
+      copy:
+        src: /home/ubuntu/app/build/
+        dest: /var/www/html
+        remote_src: yes

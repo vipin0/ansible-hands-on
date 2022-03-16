@@ -1,0 +1,16 @@
+---
+- name: Create httpd web server on amazon linux
+  hosts: 
+    - group1
+    - group2
+  become: yes
+  tasks:
+    - name: install httpd server
+      yum:
+        name: httpd
+        state: latest
+    - name: start httpd server
+      service:
+        name: httpd
+        state: started
+
