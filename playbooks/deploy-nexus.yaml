@@ -2,7 +2,7 @@
 ---
 - name: Install Java and nettools
   hosts: nexus_server
-  become: yes
+  become: true
   tasks:
     - name: Update apt cache
       apt:
@@ -20,7 +20,7 @@
 
 - name: Download and unarchive nexus installer
   hosts: nexus_server
-  become: yes
+  become: true
   vars_files:
     - nexus_vars
   tasks:
@@ -60,7 +60,7 @@
 
 - name: Create nexus user and set permissions
   hosts: nexus_server
-  become: yes
+  become: true
   vars_files:
     - nexus_vars
   tasks:
@@ -125,7 +125,7 @@
   hosts: nexus_server
   vars_files:
     - nexus_vars
-  become: yes
+  become: true
   become_user: "{{nexus_user}}"
   tasks:
     - name: Check file exists
