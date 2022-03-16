@@ -112,7 +112,7 @@
       shell: ps aux | grep {{nexus_user}}
       register: nexus_status
     - debug: msg={{nexus_status.stdout_lines}}
-    - name: Wait for port 8081 to become open on the host, don't start checking for 10 seconds
+    - name: Wait for port 8081 to become open on the host
       wait_for:
         port: 8081
         delay: 2
@@ -120,6 +120,24 @@
       shell: netstat -plnt
       register: nexus_status
     - debug: msg={{nexus_status.stdout_lines}}
+
+- name: Show nexus admin password
+  hosts: nexus_server
+  vars_files:
+    - nexus_vars
+  become: yes
+  become_user: "{{nexus_user}}"
+  tasks:
+    - name: Check file exists
+      stat:
+        path: /opt/sonatype-work/nexus3/admin.password
+      register: file_status
+    # - debug: msg={{file_status}}
+    - name: Show nexus admin password
+      shell: cat /opt/sonatype-work/nexus3/admin.password
+      register: admin_password
+      when: file_status.stat.exists
+    - debug: msg={{admin_password}}
 
 
     
