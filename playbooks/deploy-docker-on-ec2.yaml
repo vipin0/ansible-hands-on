@@ -58,6 +58,7 @@
         name: nginx-container
         image: nginx
         detach: yes
+        recreate: yes
         state: started
         ports:
           - 80:80
