@@ -1,0 +1,16 @@
+---
+- name: Pull Nginx image
+  docker_image:
+    name: nginx
+    source: pull
+  register: pull_result
+  # - debug: msg={{pull_result}}
+- name: Run Nginx container
+  docker_container:
+    name: nginx-container
+    image: nginx
+    detach: yes
+    recreate: yes
+    state: started
+    ports:
+      - 80:80
